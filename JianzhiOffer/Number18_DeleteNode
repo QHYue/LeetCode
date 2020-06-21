@@ -1,0 +1,29 @@
+//删除链表上的节点：难度--简单
+//问题：给定一个单向链表，删除指定目标值的节点，并返回删除节点后的头节点。
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteNode(ListNode* head, int val) {
+        //快慢指针：①快指针比慢指针先一步，当快指针找到目标值时，慢指针在前一个节点
+        ListNode* first=new ListNode(-1);
+        first->next=head;
+        ListNode* fast=head, *slow=first;
+        while(fast!=NULL){
+            if(fast->val==val){
+                slow->next=fast->next;
+            }
+            slow=fast;
+            fast=fast->next;   //同步后移
+        }
+        return first->next;
+    }
+};
+
+//时间复杂度是O(n)，空间复杂度是O(1)
