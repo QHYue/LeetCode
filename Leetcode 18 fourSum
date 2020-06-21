@@ -1,0 +1,46 @@
+		class Solution {
+		public:
+		    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+		        //排序+双指针：①确定前两个的位置;②用双指针寻找满足条件的剩下两个
+		        sort(nums.begin(),nums.end());    //排序
+		        int size=nums.size();
+		        vector<vector<int>> result;   //结果数组
+		        for(int i=0;i<=size-4;++i){
+		            //第一个数字下标只能在0到size-4之间
+		            int a=nums[i];
+		            //对于重复的a可以省略
+		            if(i>0&&nums[i]==nums[i-1]){
+		                continue;
+		            }
+		            for(int j=i+1;j<=size-3;++j){
+		                int b=nums[j]; 
+		                //对于重复的b可以省略
+		                if(j>i+1&&nums[j]==nums[j-1]){
+		                    continue;
+		                }  
+		                int left=j+1,right=size-1;   //左右指针
+		                while(left<right){
+		                    if(a+b+nums[left]+nums[right]==target){
+		                        vector<int> temp={a,b,nums[left],nums[right]};
+		                        result.push_back(temp);
+		                        while(left<right&&nums[left]==nums[left+1])
+		                            left++;
+		                        while(right>left&&nums[right]==nums[right-1])
+		                            right--;
+		                        //找到一组满足数字之后需要往后继续找，直到都遍历
+		                        left++;   //下一组循环
+		                        right--;
+		                    }
+		                    else if((a+b+nums[left]+nums[right])<target){
+		                        left++;    //如果当前四数和小，则左指针右移
+		                    }
+		                    else
+		                        right--;   //否则，右指针左移
+		                }
+		            }
+		        }
+		        return result;
+		    }
+		};
+
+//时间复杂度是O(n^3)，空间复杂度是O(n)
