@@ -1,0 +1,48 @@
+/* 给定1-n的整数数组，生成所有可能的二叉搜索树：
+   ①构建一个新的函数方法，参数是start和end，用于生成从start到end数组的子树
+   ②对每个当前根节点，利用上述方法构建可行的左子树和右子树集合，然后将其左右子树合并到当前根节点中
+   ③临界条件--当前根节点是n则结束遍历枚举，特殊情况--起点start大于end时返回nullptr
+*/
+/* Definition of a binary tree:
+struct Treenode{
+    int val;
+    Treenode* left,;
+    Treenode* right;
+    Treenode():val(0),left(nullptr),right(nullptr){}
+    Treenode(int x):val(x),left(nullptr),right(nullptr){}
+    Treenode(int x,Treenode* left,Treenode* right):val(x),left(left),right(right){}
+};
+
+class Solution:{
+public:
+  vecrot<Treenode*> generateTrees(int n){
+     if(!n)
+        return {};
+     return generate(1, n);    //调用自定义的函数方法
+  }
+  
+  vector<Treenode*> generateTrees(int start, int end){
+    if(start>end)
+        return {nullptr};
+    
+    //生成所有可能的BST
+    vector<Treenode*> alltrees;
+    for(int i=start;i<=end;i++){
+        //当前i下，所有可行的左右子树集合
+        vector<Treenode*> leftrees = generateTrees(start, i-1);
+        vector<Treenode*> rightrees = generateTrees(i+1,end);
+        
+        for(auto& left:leftrees){
+            for(auto& right:rightress){
+                Treenode* curnode = new Treenode(i);   //当前i作为根节点
+                curnode->left =left;
+                curnode->right = right;
+               
+                //将当前生成的节点树压入存储所有树的数组中
+                alltrees.push_back(curnode);
+            }
+        }
+    }
+    return alltrees;
+  }
+};
