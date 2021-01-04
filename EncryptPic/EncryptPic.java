@@ -203,6 +203,10 @@ public class EncryptPic {
     }
 
 
+    /**
+     *  删除尾部字节、恢复首部字节，图片正常显示
+     * @param fileName
+     */
     public static void recoverBytes(String fileName){
         byte[] bytes = File2byte(fileName);
         int length = bytes.length;
