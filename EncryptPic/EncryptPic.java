@@ -22,6 +22,7 @@ public class EncryptPic {
                     return true;
                 }
                 if (file.getName().toLowerCase().endsWith(keyword)) {  //指定后缀为jpg
+                    System.out.println(file.getName());
                     return true;
                 }
                 return false;
