@@ -1,0 +1,42 @@
+(121)简单：
+    给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+    如果你最多只允许完成一笔交易（即买入和卖出一支股票一次），设计一个算法来计算你所能获取的最大利润。
+    注意：你不能在买入股票前卖出股票。
+
+class Solution {
+public:
+/**题目要求：求数组的最大差值
+    (1)暴力法：两层循环分别求所有数组中的数值差;  
+            时间复杂度是O(n^2)=n(n-1)/2, 空间复杂度是O(1)-----超出时间限制
+    (2)单层遍历：假设自己是在股票价格最低的日子买入, 只需要记录当天的利润即可并同步更新股票最低的价格;
+            时间复杂度是O(n)=n, 空间复杂度是O(1)-----执行用时8ms，内存消耗13MB
+**/
+    int maxProfit(vector<int>& prices) {
+        //暴力求解法
+        int size=prices.size(),result=0;
+        for(int i=0;i<size-1;i++){
+            for(int j=i;j<size;j++){
+                result=max(result,prices[j]-prices[i]);
+            }
+        }
+        return result;
+    }
+
+    int maxProfit(vector<int>& prices) {
+        //单层遍历法
+        int minprice=1e9,result=0;
+        for(int price:prices){
+           result=max(result,price-minprice);
+           minprice=min(minprice,price);
+        }
+        return result;
+    }
+
+};
+
+(122) 简单：
+    给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+    设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
+    注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+
